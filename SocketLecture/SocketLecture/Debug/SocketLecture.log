@@ -1,2 +1,27 @@
 ﻿  multiThread.cpp
-  SocketLecture.vcxproj -> C:\Users\USER\source\repos\NetworkSocket\SocketLecture\Debug\SocketLecture.exe
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30037\include\thread(55,14): error C2672: 'invoke': 일치하는 오버로드된 함수가 없습니다.
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30037\include\thread(61): message : 컴파일되는 함수 템플릿 인스턴스화 'unsigned int std::thread::_Invoke<_Tuple,0,1,2,3,4>(void *) noexcept'에 대한 참조를 확인하세요.
+          with
+          [
+              _Tuple=_Tuple
+          ]
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30037\include\thread(66): message : 컴파일되는 함수 템플릿 인스턴스화 'unsigned int (__stdcall *std::thread::_Get_invoke<_Tuple,0,1,2,3,4>(std::integer_sequence<size_t,0,1,2,3,4>) noexcept)(void *)'에 대한 참조를 확인하세요.
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30037\include\thread(89): message : 컴파일되는 함수 템플릿 인스턴스화 'void std::thread::_Start<void(__cdecl &)(int *,int,int,std::mutex *,std::mutex *),_Ty,int,int,std::mutex*>(_Fn,_Ty &&,int &&,int &&,std::mutex *&&)'에 대한 참조를 확인하세요.
+          with
+          [
+              _Ty=int *,
+              _Fn=void (__cdecl &)(int *,int,int,std::mutex *,std::mutex *)
+          ]
+C:\Users\USER\source\repos\NetworkSocket\SocketLecture\SocketLecture\multiThread.cpp(35): message : 컴파일되는 함수 템플릿 인스턴스화 'std::thread::thread<void(__cdecl &)(int *,int,int,std::mutex *,std::mutex *),int*,int,int,std::mutex*,0>(_Fn,int *&&,int &&,int &&,std::mutex *&&)'에 대한 참조를 확인하세요.
+          with
+          [
+              _Fn=void (__cdecl &)(int *,int,int,std::mutex *,std::mutex *)
+          ]
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30037\include\thread(51,5): error C2893: 함수 템플릿 'unknown-type std::invoke(_Callable &&,_Ty1 &&,_Types2 &&...) noexcept(<expr>)'을(를) 특수화하지 못했습니다.
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30037\include\type_traits(1589): message : 'std::invoke' 선언을 참조하십시오.
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30037\include\thread(51,5): message : 다음 템플릿 인수 사용:
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30037\include\thread(51,5): message : '_Callable=void (__cdecl *)(int *,int,int,std::mutex *,std::mutex *)'
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30037\include\thread(51,5): message : '_Ty1=int *'
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30037\include\thread(51,5): message : '_Types2={int, int, std::mutex *}'
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30037\include\thread(51,5): error C2780: 'unknown-type std::invoke(_Callable &&) noexcept(<expr>)': 인수가 1개 있어야 하는데 5개를 사용했습니다.
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30037\include\type_traits(1583): message : 'std::invoke' 선언을 참조하십시오.
