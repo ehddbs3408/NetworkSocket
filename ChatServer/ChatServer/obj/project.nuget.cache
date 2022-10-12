@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "mnH82PBiPfqr/0EliHlpjHGSsbBQHklUQMMfg1ryK/S6NGCqdF1H61DOzFWB/uHTlStOyscXEy7VbidkcPISnQ==",
+  "dgSpecHash": "XrhJO8KmrNB1R5ScOZWycKK+GUKYk6by9sTbpCAHXVNsVFqJIh2aUt1sMNFjtBjWZU6CjjXG+ZAi7cw9b9Fclw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\USER\\source\\repos\\ChatServer\\ChatServer\\ChatServer.csproj",
+  "projectFilePath": "C:\\Users\\USER\\source\\repos\\NetworkSocket\\ChatServer\\ChatServer\\ChatServer.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\USER\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\3.1.18\\microsoft.netcore.app.host.win-x64.3.1.18.nupkg.sha512"
   ],

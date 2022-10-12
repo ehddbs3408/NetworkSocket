@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Net.Sockets;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -67,9 +68,34 @@ namespace chatClient
             InitializeComponent();
         }
 
-        private void textBox2_TextChanged(object sender, EventArgs e)
+        private void btn_connect_Click(object sender, EventArgs e)
         {
+            readData = "Connected to Chat Server...";
+            msg();
+            clientsocket.Connect("localhost", 8888);
+            serverStream = clientsocket.GetStream();
 
+            byte[] outStream = Encoding.UTF8.GetBytes(textBox1.Text + '$');
+            serverStream.Write(outStream, 0, outStream.Length); //send
+            serverStream.Flush();
+
+            Thread ctThread = new Thread(getMessage);
+            ctThread.Start();
+
+        }
+
+        private void btn_send_Click(object sender, EventArgs e)
+        {
+            byte[] outStream = Encoding.UTF8.GetBytes(textBox3.Text + '$');
+            serverStream.Write(outStream, 0, outStream.Length);
+            serverStream.Flush();
+        }
+
+        private void Form1_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            stopRunning = true;
+            serverStream.Close();
+            clientsocket.Close();
         }
     }
 }

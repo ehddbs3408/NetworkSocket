@@ -33,8 +33,8 @@ namespace chatClient
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.textBox3 = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this.btn_connect = new System.Windows.Forms.Button();
+            this.btn_send = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // textBox1
@@ -51,7 +51,6 @@ namespace chatClient
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(776, 282);
             this.textBox2.TabIndex = 1;
-            this.textBox2.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
             // 
             // textBox3
             // 
@@ -69,37 +68,40 @@ namespace chatClient
             this.label1.TabIndex = 3;
             this.label1.Text = "Name";
             // 
-            // button1
+            // btn_connect
             // 
-            this.button1.Location = new System.Drawing.Point(683, 43);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(105, 23);
-            this.button1.TabIndex = 4;
-            this.button1.Text = "Go to Server";
-            this.button1.UseVisualStyleBackColor = true;
+            this.btn_connect.Location = new System.Drawing.Point(683, 43);
+            this.btn_connect.Name = "btn_connect";
+            this.btn_connect.Size = new System.Drawing.Size(105, 23);
+            this.btn_connect.TabIndex = 4;
+            this.btn_connect.Text = "Go to Server";
+            this.btn_connect.UseVisualStyleBackColor = true;
+            this.btn_connect.Click += new System.EventHandler(this.btn_connect_Click);
             // 
-            // button2
+            // btn_send
             // 
-            this.button2.Location = new System.Drawing.Point(13, 400);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(129, 23);
-            this.button2.TabIndex = 5;
-            this.button2.Text = "Send Message";
-            this.button2.UseVisualStyleBackColor = true;
+            this.btn_send.Location = new System.Drawing.Point(13, 400);
+            this.btn_send.Name = "btn_send";
+            this.btn_send.Size = new System.Drawing.Size(129, 23);
+            this.btn_send.TabIndex = 5;
+            this.btn_send.Text = "Send Message";
+            this.btn_send.UseVisualStyleBackColor = true;
+            this.btn_send.Click += new System.EventHandler(this.btn_send_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.btn_send);
+            this.Controls.Add(this.btn_connect);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.textBox3);
             this.Controls.Add(this.textBox2);
             this.Controls.Add(this.textBox1);
             this.Name = "Form1";
             this.Text = "ChatServer";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form1_FormClosed);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -111,8 +113,8 @@ namespace chatClient
         private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.TextBox textBox3;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button btn_connect;
+        private System.Windows.Forms.Button btn_send;
     }
 }
 

@@ -161,7 +161,7 @@ namespace ConsoleApplication
                             if(ClientID == null && idx>0)
                             {
                                 ClientID = dataFromClient.Substring(0, idx);
-                                Program.UserAdd(ClientID);
+                                Program.UserAdd(ClientID,clientSocket);
                             }
                             else if(idx >0)
                             {

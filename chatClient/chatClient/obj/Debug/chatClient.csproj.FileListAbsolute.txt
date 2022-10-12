@@ -1,0 +1,10 @@
+C:\Users\USER\source\repos\NetworkSocket\chatClient\chatClient\bin\Debug\chatClient.exe.config
+C:\Users\USER\source\repos\NetworkSocket\chatClient\chatClient\bin\Debug\chatClient.exe
+C:\Users\USER\source\repos\NetworkSocket\chatClient\chatClient\bin\Debug\chatClient.pdb
+C:\Users\USER\source\repos\NetworkSocket\chatClient\chatClient\obj\Debug\chatClient.csproj.AssemblyReference.cache
+C:\Users\USER\source\repos\NetworkSocket\chatClient\chatClient\obj\Debug\chatClient.Form1.resources
+C:\Users\USER\source\repos\NetworkSocket\chatClient\chatClient\obj\Debug\chatClient.Properties.Resources.resources
+C:\Users\USER\source\repos\NetworkSocket\chatClient\chatClient\obj\Debug\chatClient.csproj.GenerateResource.cache
+C:\Users\USER\source\repos\NetworkSocket\chatClient\chatClient\obj\Debug\chatClient.csproj.CoreCompileInputs.cache
+C:\Users\USER\source\repos\NetworkSocket\chatClient\chatClient\obj\Debug\chatClient.exe
+C:\Users\USER\source\repos\NetworkSocket\chatClient\chatClient\obj\Debug\chatClient.pdb
