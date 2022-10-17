@@ -21,14 +21,12 @@ namespace chatClient
 
         private void msg()
         {
-            if(InvokeRequired)
+            if (InvokeRequired)
             {
                 Invoke(new MethodInvoker(msg));
             }
-            else
-            {
-                textBox2.Text = textBox2.Text + Environment.NewLine + " >> " + readData;
-            }
+            else textBox2.Text = textBox2.Text + Environment.NewLine
+                    + " >> " + readData;
         }
 
         private void getMessage()
@@ -38,29 +36,29 @@ namespace chatClient
 
             try
             {
-                while(!stopRunning)
+                while (!stopRunning)
                 {
                     serverStream = clientsocket.GetStream();
                     int buffsize = 0;
                     buffsize = clientsocket.ReceiveBufferSize;
                     int numBytesRead;
 
-                    if(serverStream.DataAvailable)
+                    if (serverStream.DataAvailable)
                     {
-                        readData = "";
+                        returnData = "";
                         while (serverStream.DataAvailable)
                         {
                             numBytesRead = serverStream.Read(inStream, 0, inStream.Length);
                             returnData += Encoding.UTF8.GetString(inStream, 0, numBytesRead);
                         }
-                        readData += returnData;
+                        readData = returnData;
                         msg();
                     }
                 }
             }
             catch (Exception ex)
             {
-
+                stopRunning = true;
             }
         }
         public Form1()

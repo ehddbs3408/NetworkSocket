@@ -21,12 +21,12 @@ namespace ConsoleApplication
                 TcpClient clientSocket = default(TcpClient);
                 int counter = 0;
                 byte[] bytesFrom = new byte[1024];
-                string detaFromClient = "";
+                string dataFromClient = "";
 
                 serverSocket.Start();
-                Console.WriteLine("C# Server started...");
+                Console.WriteLine("C# Server Started...");
                 counter = 0;
-                while(true)
+                while (true)
                 {
                     counter += 1;
                     clientSocket = serverSocket.AcceptTcpClient();
@@ -35,7 +35,7 @@ namespace ConsoleApplication
                     userCount++;
 
                     HandleClient client = new HandleClient();
-                    clientList.Add(counter, clientSocket);
+                    clientList.Add(counter, client);
 
                     client.startClient(clientSocket, clientList, counter);
 
@@ -43,7 +43,7 @@ namespace ConsoleApplication
                 clientSocket.Close();
                 serverSocket.Stop();
                 Console.WriteLine("Exit");
-                Console.Read();
+                Console.ReadLine();
             }
             catch (Exception ex)
             {
@@ -54,7 +54,8 @@ namespace ConsoleApplication
         public static TcpClient GetSocket(int id)
         {
             TcpClient socket = null;
-            if(clientList.ContainsKey(id))
+
+            if (clientList.ContainsKey(id))
             {
                 HandleClient hc = (HandleClient)clientList[id];
                 socket = hc.clientSocket;
@@ -62,44 +63,45 @@ namespace ConsoleApplication
             return socket;
         }
 
-        public static void broadcast(string msg,string uName, bool flag)
+        public static void broadcast(string msg, string uName, bool flag)
         {
             mut.WaitOne();
             Byte[] broadcastBytes = null;
 
-            if(flag == true) //클라이언트
+            if (flag == true) //클라이언트
             {
                 broadcastBytes = Encoding.UTF8.GetBytes(uName + "$" + msg);
             }
-            else //server
+            else //서버
             {
                 broadcastBytes = Encoding.UTF8.GetBytes(msg);
             }
 
-            foreach(DictionaryEntry Item in clientList)
+            foreach (DictionaryEntry Item in clientList)
             {
                 TcpClient broadcastSocket;
                 HandleClient hc = (HandleClient)Item.Value;
                 broadcastSocket = hc.clientSocket;
 
                 NetworkStream broadcastStream = broadcastSocket.GetStream();
+
                 broadcastStream.Write(broadcastBytes, 0, broadcastBytes.Length);
                 broadcastStream.Flush();
             }
             mut.ReleaseMutex();
+        }//end broadcast
+
+        public static void UserAdd(string clientNo)
+        {
+            broadcast(clientNo + " Joined", "", false);
+            Console.WriteLine(clientNo + "Joined chat room");
         }
 
-        public static void UserAdd(string clientNo,TcpClient clientSocket)
+        public static void UserLeft(int userID, string clientID)
         {
-            broadcast(clientNo + "Joined", "", false);
-            Console.WriteLine(clientNo+"Joined chat room");
-        }
-
-        public static void UserLeft(int userID,string clientID)
-        {
-            if(clientList.ContainsKey(userID))
+            if (clientList.ContainsKey(userID))
             {
-                broadcast(clientID + "$#Left", clientID, false);
+                broadcast(clientID + "$#Left#", clientID, false);
                 Console.WriteLine("client Left:" + clientID);
 
                 TcpClient clientSocket = GetSocket(userID);
@@ -108,6 +110,7 @@ namespace ConsoleApplication
                 clientSocket.Close();
             }
         }
+
     }
 
     public class HandleClient
@@ -122,7 +125,8 @@ namespace ConsoleApplication
         private Hashtable clientList;
         private bool noConnection = false;
 
-        public void startClient(TcpClient inClientSocket,Hashtable cList,int userSerial)
+        public void startClient(TcpClient inClientSocket,
+            Hashtable cList, int userSerial)
         {
             userID = userSerial;
             clientSocket = inClientSocket;
@@ -131,42 +135,55 @@ namespace ConsoleApplication
             Thread ctThread = new Thread(doChat);
             ctThread.Start();
         }
+
+        bool socketConnected(Socket s)
+        {
+            bool part1 = s.Poll(1000, SelectMode.SelectRead);
+            bool part2 = (s.Available == 0);
+            if (part1 && part2)
+            {
+                return false;//연결 실패
+            }
+            else return true; //연결 성공
+        }
+
         private void doChat()
         {
             byte[] bytesFrom = new byte[1024];
             string dataFromClient = "";
             NetworkStream networkStream = clientSocket.GetStream();
 
-
-            while(!noConnection)
+            while (!noConnection)
             {
                 try
                 {
                     int numBytesRead;
-                    if(!socketConnected(clientSocket.Client))
+                    if (!socketConnected(clientSocket.Client))
                     {
                         noConnection = true;
                     }
                     else
                     {
-                        if(networkStream.DataAvailable)
+                        if (networkStream.DataAvailable)
                         {
                             dataFromClient = "";
-                            while(networkStream.DataAvailable)
+                            while (networkStream.DataAvailable)
                             {
                                 numBytesRead = networkStream.Read(bytesFrom, 0, bytesFrom.Length);
                                 dataFromClient = Encoding.UTF8.GetString(bytesFrom, 0, numBytesRead);
                             }
                             int idx = dataFromClient.IndexOf("$");
-                            if(ClientID == null && idx>0)
+
+                            if (ClientID == null && idx > 0)
                             {
                                 ClientID = dataFromClient.Substring(0, idx);
-                                Program.UserAdd(ClientID,clientSocket);
+                                Program.UserAdd(ClientID);
                             }
-                            else if(idx >0)
+                            else if (idx > 1)
                             {
                                 dataFromClient = dataFromClient.Substring(0, dataFromClient.Length - 1);
-                                Console.WriteLine("From Client - "+ClientID + ": ",dataFromClient);
+                                Console.WriteLine("From Client - " + ClientID + ": " + dataFromClient);
+
                                 Program.broadcast(dataFromClient, ClientID, true);
                             }
                             else
@@ -176,10 +193,10 @@ namespace ConsoleApplication
                         }
                     }
                 }
-                catch(Exception e)
+                catch (Exception e)
                 {
                     noConnection = true;
-                    Console.WriteLine("Error: "+ e,ToString());
+                    Console.WriteLine("Error: " + e.ToString());
                 }
             }
             Program.UserLeft(userID, ClientID);
