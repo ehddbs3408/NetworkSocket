@@ -95,5 +95,70 @@ namespace chatClient
             serverStream.Close();
             clientsocket.Close();
         }
+
+        private void button1_Click(object sender, EventArgs e) //새로운기능 꼐산기!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        {
+
+            //입력 예 ) 1+1 , 2*2 , 10/2
+            string a = textBox3.Text;
+            for(int j = 0;j<4;j++)
+            {
+                if(a.IndexOf('+') > -1)
+                {
+                    string[] s = a.Split('+');
+                    int result = 0;
+                    for (int i = 0; i < s.Length; i++)
+                    {
+                        result += int.Parse(s[i]);
+                    }
+                    a = a + "=" + result;
+                    break;
+                }
+                if (a.IndexOf('-') > -1)
+                {
+                    string[] s = a.Split('-');
+                    int result = 0;
+                    for (int i = 0; i < s.Length; i++)
+                    {
+                        result -= int.Parse(s[i]);
+                    }
+                    a = a + "=" + result;
+                    break;
+                }
+                if (a.IndexOf('/') > -1)
+                {
+                    string[] s = a.Split('/');
+                    int result = int.Parse(s[0]); ;
+                    for (int i = 1; i < s.Length; i++)
+                    {
+                        result /= int.Parse(s[i]);
+                    }
+                    a = a + "=" + result;
+                    break;
+                }
+                if (a.IndexOf('*') > -1)
+                {
+                    string[] s = a.Split('*');
+                    int result = 1;
+                    for (int i = 0; i < s.Length; i++)
+                    {
+                        result *= int.Parse(s[i]);
+                    }
+                    a = a + "=" + result;
+                    break;
+                }
+            }
+            
+            byte[] outStream = Encoding.UTF8.GetBytes(a + '$');
+            serverStream.Write(outStream, 0, outStream.Length);
+            serverStream.Flush();
+        }
+
+        private void Btn_earInHorse_Click(object sender, EventArgs e)//귀속말=======================================
+        {
+            int id = int.Parse(textBox4.Text);
+            byte[] outStream = Encoding.UTF8.GetBytes(textBox3.Text + '$');
+            serverStream.Write(outStream, id, outStream.Length);
+        }
     }
 }

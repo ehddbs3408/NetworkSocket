@@ -12,9 +12,12 @@ namespace ConsoleApplication
         public static Hashtable clientList = new Hashtable();
         private static int userCount = 0;
         private static Mutex mut = new Mutex();
+        const string s = "공지사항 - 아무 말도 하지 마셈";
+        private string[] uNames;
 
         static void Main(string[] args)
         {
+            
             try
             {
                 TcpListener serverSocket = new TcpListener(IPAddress.Any, 8888);
@@ -25,6 +28,7 @@ namespace ConsoleApplication
 
                 serverSocket.Start();
                 Console.WriteLine("C# Server Started...");
+                
                 counter = 0;
                 while (true)
                 {
@@ -68,6 +72,8 @@ namespace ConsoleApplication
             mut.WaitOne();
             Byte[] broadcastBytes = null;
 
+
+
             if (flag == true) //클라이언트
             {
                 broadcastBytes = Encoding.UTF8.GetBytes(uName + "$" + msg);
@@ -93,7 +99,7 @@ namespace ConsoleApplication
 
         public static void UserAdd(string clientNo)
         {
-            broadcast(clientNo + " Joined", "", false);
+            broadcast(clientNo + " Joined -." + s, "", false); //s 공지 추가~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
             Console.WriteLine(clientNo + "Joined chat room");
         }
 
@@ -121,6 +127,8 @@ namespace ConsoleApplication
         public TcpClient clientSocket;
         public int userID;
         public string ClientID;
+
+        public string[] ClientIDs;
 
         private Hashtable clientList;
         private bool noConnection = false;
@@ -161,6 +169,7 @@ namespace ConsoleApplication
                     if (!socketConnected(clientSocket.Client))
                     {
                         noConnection = true;
+                        networkStream.Read
                     }
                     else
                     {
@@ -177,6 +186,7 @@ namespace ConsoleApplication
                             if (ClientID == null && idx > 0)
                             {
                                 ClientID = dataFromClient.Substring(0, idx);
+                                
                                 Program.UserAdd(ClientID);
                             }
                             else if (idx > 1)
