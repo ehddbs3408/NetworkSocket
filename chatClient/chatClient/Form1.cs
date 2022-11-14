@@ -70,7 +70,7 @@ namespace chatClient
         {
             readData = "Connected to Chat Server...";
             msg();
-            clientsocket.Connect("localhost", 8888);
+                clientsocket.Connect("localhost", 8888);
             serverStream = clientsocket.GetStream();
 
             byte[] outStream = Encoding.UTF8.GetBytes(textBox1.Text + '$');
@@ -92,8 +92,12 @@ namespace chatClient
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
         {
             stopRunning = true;
-            serverStream.Close();
-            clientsocket.Close();
+            if(clientsocket.Connected==true)
+            {
+                serverStream.Close();
+                clientsocket.Close();
+            }
+            
         }
 
         private void button1_Click(object sender, EventArgs e) //새로운기능 꼐산기!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -159,6 +163,74 @@ namespace chatClient
             int id = int.Parse(textBox4.Text);
             byte[] outStream = Encoding.UTF8.GetBytes(textBox3.Text + '$');
             serverStream.Write(outStream, id, outStream.Length);
+        }
+
+        private void CLS_Click(object sender, EventArgs e) //지우기 기능=============================================
+        {
+            textBox2.Text = "";
+        }
+
+        private void Out_Click(object sender, EventArgs e)//나가기=============================================
+        {
+            if(clientsocket.Connected == true)
+            {
+                stopRunning = true;
+                serverStream.Close();
+                clientsocket.Close();
+                readData = "서버에서 나갔습니다.";
+                msg();
+            }
+            else
+            {
+                readData = "님이미 나감";
+                msg();
+            }
+            
+        }
+
+        private void Red_Click(object sender, EventArgs e)
+        {
+            textBox2.ForeColor = Color.Red;
+            this.BackColor = Color.Red;
+        }
+
+        private void O_Click(object sender, EventArgs e)
+        {
+            textBox2.ForeColor = Color.Orange;
+            this.BackColor = Color.Orange;
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            textBox2.ForeColor = Color.Yellow;
+            this.BackColor = Color.Yellow;
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            textBox2.ForeColor = Color.Green;
+            this.BackColor = Color.Green;
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            textBox2.ForeColor = Color.SkyBlue;
+            this.BackColor = Color.SkyBlue;
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            textBox2.ForeColor = Color.Blue;
+            this.BackColor = Color.Blue;
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
         }
     }
 }
